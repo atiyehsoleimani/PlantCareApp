@@ -1,0 +1,10 @@
+info:
+  name: 2 - Bonus
+  type: folder
+  seq: 2
+
+request: {}
+
+docs:
+  content: The bonus exercises. "Add an outdoor plant" stores a new `{{plantId}}` for the requests after it.
+  type: text/markdown

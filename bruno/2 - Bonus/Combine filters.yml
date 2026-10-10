@@ -1,0 +1,31 @@
+info:
+  name: Combine filters
+  type: http
+  seq: 9
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plants?indoor=true&due_within_days=3"
+  params:
+    - name: indoor
+      value: "true"
+      type: query
+    - name: due_within_days
+      value: "3"
+      type: query
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: "**Bonus 5**: indoor plants that need water in the next 3 days."

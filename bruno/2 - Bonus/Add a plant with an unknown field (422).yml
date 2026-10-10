@@ -1,0 +1,31 @@
+info:
+  name: Add a plant with an unknown field (422)
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plants"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Basil",
+        "colour": "green"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: '**Bonus 2**: with `extra="forbid"`, typos and unknown fields are rejected instead of silently ignored.'

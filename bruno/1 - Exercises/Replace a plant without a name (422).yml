@@ -1,0 +1,30 @@
+info:
+  name: Replace a plant without a name (422)
+  type: http
+  seq: 8
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/plants/{{plantId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "indoor": false
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: "**Exercise 5**: `PUT` needs a complete body, so a missing `name` is a `422`. (Changing one field is what `PATCH` is for, see the bonus.)"

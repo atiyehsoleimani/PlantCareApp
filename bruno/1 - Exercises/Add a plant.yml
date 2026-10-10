@@ -1,0 +1,43 @@
+info:
+  name: Add a plant
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plants"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Monstera",
+        "species": "Monstera deliciosa",
+        "water_every_days": 10,
+        "tags": [
+          "tropical"
+        ]
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Remember the id the server picked, so later requests can use {{plantId}}
+        bru.setVar("plantId", res.body.id);
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  **Exercise 4**: `POST /plants` answers `201 Created` with the new plant.
+
+  Notice there is no `id` in the body: the server picks it. The post-response script saves it as `{{plantId}}`.

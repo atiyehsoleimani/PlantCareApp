@@ -1,0 +1,41 @@
+info:
+  name: Add an outdoor plant
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plants"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Aloe",
+        "indoor": false,
+        "water_every_days": 14,
+        "last_watered": "2026-01-15",
+        "tags": [
+          "succulent"
+        ]
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Remember the id the server picked, so later requests can use {{plantId}}
+        bru.setVar("plantId", res.body.id);
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: Adds a plant that was last watered long ago, so it is due for water. The post-response script saves its id as `{{plantId}}`.

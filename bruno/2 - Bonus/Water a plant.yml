@@ -1,0 +1,38 @@
+info:
+  name: Water a plant
+  type: http
+  seq: 6
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/plants/{{plantId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "last_watered": "{{today}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // Fill in {{today}} with today's date before the request is sent
+        bru.setVar("today", new Date().toLocaleDateString("sv-SE"));
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  **Bonus 4**: `PATCH` changes ONLY the fields you send. Here: "I just watered it". All other fields stay the same.
+
+  Run "Plants that need water today" again afterwards: the plant is no longer in the list.

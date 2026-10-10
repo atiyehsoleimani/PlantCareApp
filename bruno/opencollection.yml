@@ -1,0 +1,28 @@
+opencollection: 1.0.0
+
+info:
+  name: Lab 7 - Houseplant API
+
+request:
+  variables:
+    - name: baseUrl
+      value: http://127.0.0.1:8000
+
+docs:
+  content: |-
+    # Lab 7: Houseplant API
+
+    Start your API first: `uv run fastapi dev main.py`
+
+    Every request checks its status code (see the **Assert** tab). Open the **Docs** tab of a request to see which exercise it belongs to.
+
+    The server address is the collection variable `{{baseUrl}}` (Collection settings > Vars).
+
+    Tip: right-click a folder > **Run** to send all its requests in order.
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

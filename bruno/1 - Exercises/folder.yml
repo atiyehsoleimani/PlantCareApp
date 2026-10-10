@@ -1,0 +1,13 @@
+info:
+  name: 1 - Exercises
+  type: folder
+  seq: 1
+
+request: {}
+
+docs:
+  content: |-
+    The endpoints of Exercises 3-6 plus the example GET /plants.
+
+    Run them top to bottom: "Add a plant" stores the new id in `{{plantId}}`, which the requests after it use.
+  type: text/markdown

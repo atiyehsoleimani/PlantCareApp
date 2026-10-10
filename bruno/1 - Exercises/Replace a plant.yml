@@ -1,0 +1,38 @@
+info:
+  name: Replace a plant
+  type: http
+  seq: 7
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/plants/{{plantId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Big Monstera",
+        "species": "Monstera deliciosa",
+        "indoor": true,
+        "water_every_days": 7,
+        "last_watered": null,
+        "tags": [
+          "tropical",
+          "living-room"
+        ]
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: "**Exercise 5**: `PUT` replaces the WHOLE plant. Try removing a field from the body: it goes back to its default value."

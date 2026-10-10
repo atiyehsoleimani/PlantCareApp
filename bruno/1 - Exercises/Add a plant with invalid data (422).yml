@@ -1,0 +1,31 @@
+info:
+  name: Add a plant with invalid data (422)
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plants"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "",
+        "water_every_days": 0
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: "**Exercise 4**: Pydantic rejects the body before your code runs. FastAPI answers `422` and lists every problem in `detail`: one for `name`, one for `water_every_days`."
